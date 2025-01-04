@@ -1,12 +1,17 @@
 const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars');// Constante que vai receber o módulo express-handlebars
+const bodyParser = require('body-parser'); //Constante que vai receber o módulo body-parser
 const Sequelize = require('sequelize');
 
 // Config
     // Template Engine
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
     app.set('view engine', 'handlebars');
+
+    // Body Parser
+    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.json());
 
     // Conexão com o banco de dados MySWL
     const sequelize = new Sequelize('bdTeste', 'root', 'root', {
@@ -22,7 +27,9 @@ const Sequelize = require('sequelize');
 
     // Criando rota para enviar os dados do formulário
     app.post('/enviarForm', function(req, res) {
-        res.send('Formulário recebido');
+        var texto1 = req.body.titulo;
+        var texto2 = req.body.conteudo;
+        res.send("Titulo: " + texto1 + " Conteudo: " + texto2);
     });
 
 app.listen(8081, function() {
