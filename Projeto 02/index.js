@@ -14,10 +14,15 @@ const Sequelize = require('sequelize');
         dialect: 'mysql'
     });
 
-// Criando formulário de cadastro de posts
-    // Rotas
+// Rotas
+    // Criando formulário de cadastro de posts
     app.get('/cadastro', function(req, res) {
         res.render('formulario'); // Método que vai "chamar" o arquivo que será exibido
+    });
+
+    // Criando rota para enviar os dados do formulário
+    app.post('/enviarForm', function(req, res) {
+        res.send('Formulário recebido');
     });
 
 app.listen(8081, function() {
