@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars');// Constante que vai receber o módulo express-handlebars
 const bodyParser = require('body-parser'); //Constante que vai receber o módulo body-parser
-const Sequelize = require('sequelize');
 
 // Config
     // Template Engine
@@ -12,12 +11,6 @@ const Sequelize = require('sequelize');
     // Body Parser
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
-
-    // Conexão com o banco de dados MySWL
-    const sequelize = new Sequelize('bdTeste', 'root', 'root', {
-        host: "localhost",
-        dialect: 'mysql'
-    });
 
 // Rotas
     // Criando formulário de cadastro de posts
