@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars');// Constante que vai receber o módulo express-handlebars
 const bodyParser = require('body-parser'); //Constante que vai receber o módulo body-parser
-const Post = require('./models/Post')// Constnte que recebe o model Post para ser manipulado por esse arquivo
+const Post = require('./models/Post');// Constnte que recebe o model Post para ser manipulado por esse arquivo
+const { where } = require('sequelize');
 
 // Config
     // Template Engine
@@ -37,6 +38,15 @@ const Post = require('./models/Post')// Constnte que recebe o model Post para se
             res.redirect('/');
         }).catch(function(erro) { // função que retorna o erro no proceso de criação
             res.send("Houve um erro: " + erro);
+        });
+    });
+
+    // Rota para deletar uma postagem
+    app.get('/deletar/:id', function(req, res) {
+        Post.destroy({where: {'id': req.params.id}}).then(function() {
+            res.send("Postagem deletada com sucesso");
+        }).catch(function(erro) {
+            res.send("Esta postagem não existe!")
         });
     });
 
