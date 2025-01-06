@@ -17,7 +17,9 @@ const Post = require('./models/Post')// Constnte que recebe o model Post para se
 
     // Rota principal do sistema que retornará para a 'home'
     app.get('/', function(req, res) {
-        res.render('home');
+        Post.findAll({order: [['id', 'DESC']]}).then(function(posts) { // Retornará todos os registros da tabela Post
+            res.render('home', { posts: posts.map(post => post.toJSON()) });
+        });
     })
 
     // Criando formulário de cadastro de posts
